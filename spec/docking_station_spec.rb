@@ -14,6 +14,19 @@ describe DockingStation do
         expect(bike.working?).to eq true
     end
 
+    it 'docks a bike' do
+        # Set up
+        docking_station = DockingStation.new
+        bike = docking_station.release_bike
 
+        # Does the method even exist?
+        expect(docking_station).to respond_to :dock_bike
 
+        # testing
+        previous_length = docking_station.bike_rack.length
+        # dock the bike
+        docking_station.dock_bike(bike)
+
+        expect(docking_station.bike_rack.length).to eq previous_length + 1
+    end   
 end
