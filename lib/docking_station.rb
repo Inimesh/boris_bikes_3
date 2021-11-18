@@ -6,7 +6,7 @@ class DockingStation
 
     def release_bike
         if is_empty?
-            raise 'no bikes available'
+            raise StandardError.new 'no bikes available'
         else
             return @bike_rack.pop
         end
