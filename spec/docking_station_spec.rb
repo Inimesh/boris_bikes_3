@@ -26,27 +26,26 @@ describe DockingStation do
         
     end
 
-
-
-
-    it 'docks a bike' do
-        # Set up
-        docking_station = DockingStation.new
-        
-        bike = Bike.new
-
-        docking_station.dock_bike(bike)
-
-        # Does the method even exist?
-        expect(docking_station).to respond_to :dock_bike
-
-        # testing
-        previous_length = docking_station.bike_rack.length
-        # dock the bike
-        docking_station.dock_bike(bike)
-
-        expect(docking_station.bike_rack.length).to eq previous_length + 1
-    end   
+    describe '#dock_bike' do
+        it 'docks a bike' do
+            # Set up
+            docking_station = DockingStation.new
+            
+            bike = Bike.new
+    
+            docking_station.dock_bike(bike)
+    
+            # Does the method even exist?
+            expect(docking_station).to respond_to :dock_bike
+    
+            # testing
+            previous_length = docking_station.bike_rack.length
+            # dock the bike
+            docking_station.dock_bike(bike)
+    
+            expect(docking_station.bike_rack.length).to eq previous_length + 1
+        end   
+    end
 
     describe '#is_empty?' do
         it 'checks if the bike rack is empty' do
