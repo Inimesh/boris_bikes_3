@@ -49,7 +49,7 @@ describe DockingStation do
             docking_station = DockingStation.new
 
             #create 11 bikes and dock
-            11.times do
+            20.times do
                 bike = Bike.new
                 docking_station.dock_bike(bike)
             end
@@ -58,19 +58,6 @@ describe DockingStation do
         end  
     end
 
-    describe '#is_empty?' do
-        it 'checks if the bike rack is empty' do
-            
-            docking_station = DockingStation.new
-            expect(docking_station.is_empty?).to eq(true)
 
-            bike = Bike.new
-            docking_station.dock_bike(bike)
-            expect(docking_station.is_empty?).to eq(false)
-
-        end 
-        
-    end
-
-
+    
 end
