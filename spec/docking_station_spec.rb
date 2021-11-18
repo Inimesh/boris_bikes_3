@@ -44,7 +44,18 @@ describe DockingStation do
             docking_station.dock_bike(bike)
     
             expect(docking_station.bike_rack.length).to eq previous_length + 1
-        end   
+        end 
+        it 'rejects bike at full capacity' do
+            docking_station = DockingStation.new
+
+            #create 11 bikes and dock
+            11.times do
+                bike = Bike.new
+                docking_station.dock_bike(bike)
+            end
+            bike = Bike.new
+            expect { docking_station.dock_bike(bike) }.to raise_error('rack is full!')
+        end  
     end
 
     describe '#is_empty?' do

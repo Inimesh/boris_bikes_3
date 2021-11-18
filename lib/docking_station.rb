@@ -1,7 +1,8 @@
 class DockingStation
     attr_reader :bike_rack
-    def initialize
+    def initialize(capacity = 11)
         @bike_rack = []
+        @capacity = capacity
     end
 
     def release_bike
@@ -13,6 +14,9 @@ class DockingStation
     end
 
     def dock_bike(bike)
+        if bike_rack.length >= @capacity
+            raise StandardError.new 'rack is full!'
+        end 
         @bike_rack << bike
     end 
     
