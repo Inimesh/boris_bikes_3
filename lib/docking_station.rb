@@ -8,12 +8,14 @@ class DockingStation
     def release_bike
         if is_empty?
             raise StandardError.new 'no bikes available'
-        else
-            return @bike_rack.pop
-        end
+
+        @bike_rack.each { |bike|
+            if bike.working == true
+                return @bike_rack.delete(bike)
+        }
     end
 
-    def dock_bike(bike)
+    def dock_bike
         if is_full? 
             raise StandardError.new 'rack is full!'
         end
@@ -26,4 +28,6 @@ class DockingStation
     private def is_full?
           @bike_rack.length >= @capacity
     end
+
+    
 end

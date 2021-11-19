@@ -23,6 +23,13 @@ describe DockingStation do
 
 
         end
+
+        it 'does not release a bike' do
+            docking_station = DockingStation.new
+            bike = Bike.new
+
+            
+        end
         
     end
 
@@ -59,14 +66,6 @@ describe DockingStation do
         end  
     end
 
-    it 'reports when bike is not working' do
-        docking_station = DockingStation.new
-        bike = Bike.new
-        bike.working = false
-
-        expect(docking_station.status(bike)).to eq(false)
-
-
-    end
+    
 
 end
