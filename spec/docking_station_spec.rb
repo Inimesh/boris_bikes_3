@@ -58,4 +58,15 @@ describe DockingStation do
             expect { docking_station.dock_bike(bike) }.to raise_error('rack is full!')
         end  
     end
+
+    it 'reports when bike is not working' do
+        docking_station = DockingStation.new
+        bike = Bike.new
+        bike.working = false
+
+        expect(docking_station.status(bike)).to eq(false)
+
+
+    end
+
 end

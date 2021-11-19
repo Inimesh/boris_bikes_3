@@ -1,10 +1,6 @@
 class Bike
-  attr_writer :working
+  attr_accessor :working
   def initialize
     @working = true
-  end
-  
-  def working?
-     @working
   end
 end
