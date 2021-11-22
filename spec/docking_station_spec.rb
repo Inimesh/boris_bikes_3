@@ -3,17 +3,11 @@ require 'bike'
 
 describe DockingStation do
     describe '#release_bike' do
-
-        it 'testing release bike' do
-            docking_station = DockingStation.new
-            expect(docking_station).to respond_to :release_bike
-        end
     
         it 'releases a bike and checks its working' do
             docking_station = DockingStation.new
             bike = Bike.new
-            expect(bike).to be_instance_of(Bike)
-            expect(bike.working?).to eq true
+            expect(bike.working).to eq true
         end
 
         it 'checks if bike rack is empty' do
@@ -21,14 +15,18 @@ describe DockingStation do
 
             expect { docking_station.release_bike }.to raise_error('no bikes available')     
 
-
         end
+        context 'bike is broken' do
+            it 'does not release a bike' do
+                docking_station = DockingStation.new
+                bike = Bike.new
+    
+                bike.working = false
+                docking_station.dock_bike(bike)
 
-        it 'does not release a bike' do
-            docking_station = DockingStation.new
-            bike = Bike.new
-
-            
+                expect { docking_station.release_bike }.to raise_error('no working bikes available')
+            end
+          
         end
         
     end
