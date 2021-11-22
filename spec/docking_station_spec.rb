@@ -3,12 +3,32 @@ require 'bike'
 
 describe DockingStation do
     describe '#release_bike' do
+        let(:bike) { double :bike }
+
+        context 'bike is working' do
+            before do
+                allow(bike).to receive(:working).and_return(true)
+            end
+
+            it 'checks a bike is working and releases it' do
+                subject.dock_bike(bike)
+                released_bike = subject.release_bike
     
-        it 'checks a bike is working and releases it' do
-            docking_station = DockingStation.new
-            bike = Bike.new
-            docking_station.dock_bike(bike)
-            expect(docking_station.release_bike.working).to eq true
+                expect(bike.working).to eq true
+            end
+          
+        end
+
+        context 'bike is broken' do
+            before do
+                allow(bike).to receive(:working).and_return(false)
+            end
+
+            it 'does not release a bike' do
+                subject.dock_bike(bike)
+                expect { subject.release_bike }.to raise_error('no working bikes available')
+            end
+          
         end
 
         it 'checks if bike rack is empty' do
@@ -17,54 +37,26 @@ describe DockingStation do
             expect { docking_station.release_bike }.to raise_error('no bikes available')     
 
         end
-        context 'bike is broken' do
-            it 'does not release a bike' do
-                docking_station = DockingStation.new
-                bike = Bike.new
-    
-                bike.working = false
-                docking_station.dock_bike(bike)
-
-                expect { docking_station.release_bike }.to raise_error('no working bikes available')
-            end
-          
-        end
         
     end
 
     describe '#dock_bike' do
+        let(:bike) { double :bike }
+
         it 'docks a bike' do
-            # Set up
-            docking_station = DockingStation.new
-            
-            bike = Bike.new
+            subject.dock_bike(bike)
     
-            docking_station.dock_bike(bike)
-    
-            # Does the method even exist?
-            expect(docking_station).to respond_to :dock_bike
-    
-            # testing
-            previous_length = docking_station.bike_rack.length
-            # dock the bike
-            docking_station.dock_bike(bike)
-    
-            expect(docking_station.bike_rack.length).to eq previous_length + 1
+            expect(subject.bike_rack.include?(bike)).to eq true
         end 
         
         it 'rejects bike at full capacity' do
-            docking_station = DockingStation.new
-
             #create 20 bikes and dock
             20.times do
-                bike = Bike.new
-                docking_station.dock_bike(bike)
+                subject.dock_bike(bike)
             end
-            bike = Bike.new
-            expect { docking_station.dock_bike(bike) }.to raise_error('rack is full!')
-        end  
+            expect { subject.dock_bike(bike) }.to raise_error('rack is full!')
+        end 
+        
     end
-
-    
 
 end
