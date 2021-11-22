@@ -8,7 +8,7 @@ describe DockingStation do
             docking_station = DockingStation.new
             bike = Bike.new
             docking_station.dock_bike(bike)
-            expect(docking_station.release_bike).to eq bike
+            expect(docking_station.release_bike.working).to eq true
         end
 
         it 'checks if bike rack is empty' do
