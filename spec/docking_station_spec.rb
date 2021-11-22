@@ -4,10 +4,11 @@ require 'bike'
 describe DockingStation do
     describe '#release_bike' do
     
-        it 'releases a bike and checks its working' do
+        it 'checks a bike is working and releases it' do
             docking_station = DockingStation.new
             bike = Bike.new
-            expect(bike.working).to eq true
+            docking_station.dock_bike(bike)
+            expect(docking_station.release_bike).to eq bike
         end
 
         it 'checks if bike rack is empty' do
